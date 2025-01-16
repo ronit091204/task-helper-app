@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,8 +8,12 @@ const taskSchema = new mongoose.Schema({
     type: { type: String, default: 'Point' },
     coordinates: [Number]
   },
-  status: { type: String, enum: ['pending', 'accepted', 'completed'], default: 'pending' },
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  status: {
+    type: String,
+    enum: ['pending', 'accepted', 'in-progress', 'completed'],
+    default: 'pending'
+  },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   helper: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now }
 });
